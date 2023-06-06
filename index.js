@@ -5,7 +5,6 @@ const authRouter = require("./auth/router");
 const adminRouter = require("./routers/admin/router");
 const userRouter = require("./routers/user/router");
 const sessionExplorerRouter = require("./session-explorer/router");
-const { routerTest } = require("./testroute");
 const User = require("./models/user");
 const Product = require("./models/product");
 const Cart = require("./models/cart");
@@ -128,7 +127,6 @@ app.get("/product/:id", async (req, res) => {
 
 app.get("/product", checkAdmin, (req, res) => res.send("Your products!"));
 app.use("/test", (req, res) => res.send("from test!"));
-app.use("/api", routerTest);
 app.use("/api", sessionExplorerRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
