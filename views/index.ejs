@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/lib/bootstrap-5.1.3-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/lib/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+    <title>Home</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-middle">
+        <div class="container">
+          <div class="row">
+            <div class="nav">
+              <a href="/"
+                ><img src="/img/1.png" alt="" width="137px" height="69px"
+              /></a>
+              <form class="d-flex" role="search">
+                <input
+                  class="form-control me-2 sear"
+                  type="search"
+                  placeholder="Search for products"
+                  aria-label="Search"
+                />
+                <a href="/"
+                  ><img
+                    class="sear1"
+                    src="/img/2.png"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                /></a>
+              </form>
+              <div class="a" style="display: flex;">
+                <a href="/user/cart" style="width: 60%;"
+                  ><img class="a1" style="font-size: 2px;" src="img/3.png" alt=""
+                />
+              </a>
+          
+              </div>
+              <a class="nav-link b" href="/">Home</a>
+              <% if(user) { %>
+              <a class="nav-link b" href="/api/auth/logout">Logout</a>
+              <p style="margin: 15px 0 0 20px; color: red;">Welcome <br><strong style="color: black;"><%= user.username %></strong></p>
+              <% } else { %>
+              <a class="nav-link b" href="/api/auth/login">Log in</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+
+      
+
+      <div class="container-filed">
+        <div class="row">
+          <div class="c">
+            <h2 class="c1">Home</h2>
+            <h3 class="c2">
+              
+              products <% if(user && user.isAdmin) { %>
+              <a href="/api/admin/product">
+                <button type="button" class="btn btn-outline-light c3">
+                  Add product +
+                </button>
+              </a>
+              <% } else { %>
+              <a href="/user/cart">
+                <button type="button" class="btn btn-outline-light c3">
+                  Go to cart
+                </button>
+              </a>
+              <% } %>
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="d">
+            <h1>Top selling products</h1>
+            <svg
+              width="680"
+              height="1"
+              viewBox="0 0 680 1"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line y1="0.5" x2="680" y2="0.5" stroke="black" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="e" style="display: flex; justify-content: center;">
+
+        <% if (!user || !user.isAdmin) {%>
+<div style="margin: 0 30px">
+        <label><strong>You can change the look of the site: </strong></label><br/>
+        <select id="templete" name="templete" class="select-items" style="width:200px;">
+          <option value="" selected>Select a look</option>
+           <option value="first">1</option>
+           <option value="secound">2</option>
+           <option value="third">3</option>
+         </select>
+        <a id="change" class="change" ><strong>Change</strong></a>
+      </div>
+      <% } %>
+
+        <form method="post" action="/" style="margin: 0 30px">
+        <label><strong>You can filter the products by category: </strong></label><br/>
+        <select id="category" name="category" class="select-items" style="width:200px;">
+         <option value="" selected>Select a category</option>
+          <option value="laptop">Laptop</option>
+          <option value="phone">Phone</option>
+          <option value="screen">Screen</option>
+        </select>
+       <button class="filter" type="submit"><strong>Filter</strong></button>
+      </form>
+
+      </div>
+      <div class="container">
+        <div class="row">
+
+          <% if(user && user.isAdmin) { %>
+          
+          <table class="admin-table" style="width:100%">
+            <colgroup>  
+              <col>  
+              <col>   
+              <col>
+              <col>
+            </colgroup>
+            <tr>
+              <th style="width:30%">Name</th>
+              <th style="width:40%">Details</th>
+              <th style="width:15%">category</th>
+              <th style="width:5%">price</th>
+              <th style="width:10%">action</th>
+            </tr>
+            <% products.forEach(product=> { %>
+            <tr>
+            <td><a style="text-decoration: none; color: red;" href="/<%= product.id %>"><strong><%= product.name %></strong></a></td>
+            <td><strong><%= product.desc %></strong></td>
+            <td><strong><%= product.category %></strong></td>
+            <td><strong><%= product.price %></strong></td>
+            <td>
+              <div  style="display: flex; align-items: center;">
+                <a class="ff" href="/api/admin/product/<%= product.id %>"
+                 style="
+                   background-color: transparent;
+                      border: none;
+                      text-decoration: underline;
+                      cursor: pointer;
+                  " ><img class="f4" src="/img/5.png" alt=""
+                /></a>
+
+                <form action="/api/admin/product/<%= product.id %>?_method=DELETE" method="POST" style=" margin-bottom: 25px;">
+                  <button type="submit" class="ff2" style="display: flex; 
+                 
+                  background-color: transparent;
+                      border: none;
+                      text-decoration: underline;
+                      cursor: pointer;
+                  "><img class="f5" src="img/6.png" alt=""
+                    /></button>
+                </form>
+                </div>
+            </td>
+            </tr>
+            <% }) %>
+            </table>
+
+            <% } else { %>
+          <% products.forEach(product=> { %>
+            <div class="col-4 g">
+              <img style="height: 60%; width: 80%;" class="f" src="img/<%=product.category%>.png" alt="" />
+              <p style="text-align: start;" class="f1"><%=product.category%></p>
+              <a style="color: black; text-decoration: none; " href="product/<%=product.id%>"
+                ><h5 class="f2"><%=product.name%></h5></a
+              >
+              <div class="buying ff1">
+                <b class="f3">$<%=product.price%></b>
+     
+                  <div class="f6">
+                    <form action="/user/cart/add/<%= product.id %>?_method=POST" method="POST">
+                      <button type="submit" class="ff2" style="display: flex; align-items: center; justify-content: center;"><img  style="margin-right: 10px" class="f5" src="img/3.png" alt=""
+                        /></button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+              <% } %>
+          
+      </div>
+    </section>
+
+    <footer>
+      <div class="container-fluid cont_footer">
+        <img
+          src="img/1.png"
+          alt=""
+          width="137px"
+          height="69px"
+          class="img_footer"
+        />
+        <div class="row footer">
+          <div class="col-2">
+            <h6 class="footer1">
+              <b>Company Info</b>
+            </h6>
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">About Us</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Carrier</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >We are hiring</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Blog</a></small
+              ></small
+            >
+          </div>
+          <div class="col-2">
+            <h6 class="footer1">
+              <b>Legal</b>
+            </h6>
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">About Us</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Carrier</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >We are hiring</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Blog</a></small
+              ></small
+            >
+          </div>
+          <div class="col-2">
+            <h6 class="footer1">
+              <b>Features</b>
+            </h6>
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >Busines Marketing</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >User Analytic</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Live Chat</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >Unlimited Support</a
+                ></small
+              ></small
+            >
+          </div>
+          <div class="col-2">
+            <h6 class="footer1">
+              <b>Resources</b>
+            </h6>
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >IOS & Android</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >Watch a Demo</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Customers</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">API</a></small
+              ></small
+            >
+          </div>
+          <div class="col-4">
+            <h6 class="footer_1">
+              <b>Get In Touch</b>
+            </h6>
+            <small>
+              <small>
+                <img src="img/9.png" alt="" class="footer2" />
+                <a class="nav-link text-black-50" href="#">(480) 555-0103</a>
+              </small>
+            </small>
+            <small>
+              <small>
+                <img src="img/10.png" alt="" class="footer_2" />
+                <a class="nav-link text-black-50" href="#"
+                  >4517 Washington Ave. Manchester, <br />
+                  Kentucky 39495
+                </a>
+              </small>
+            </small>
+            <small>
+              <small>
+                <img src="img/11.png" alt="" class="footer2" />
+                <a class="nav-link text-black-50" href="#"
+                  >debra.holt@example.com</a
+                >
+              </small>
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="footer3">
+        <b class="footer_3"> Made With Love By Figmaland All Right Reserved </b>
+        <div class="footer4">
+          <a href="#"><img src="img/12.png" alt="" class="footer_4" /></a>
+          <a href="#"><img src="img/13.png" alt="" class="footer_4" /></a>
+          <a href="#"><img src="img/14.png" alt="" class="footer_4" /></a>
+        </div>
+      </div>
+    </footer>
+
+
+    <script>
+      const templete = document.getElementById('templete')
+      const change = document.getElementById('change')
+      templete.addEventListener('change', (event) => {
+  const selectedValue = event.target.value;
+  if (selectedValue === 'first' || '') {
+    change.href = '/'
+  } else {
+    change.href = `/${selectedValue}`;
+  }
+});
+    </script>
+  </body>
+</html>

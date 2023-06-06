@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/lib/bootstrap-5.1.3-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/lib/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+    <title>Home</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-middle">
+        <div class="container">
+          <div class="row">
+            <div class="nav">
+              <a href="/"
+                ><img src="/img/1.png" alt="" width="137px" height="69px"
+              /></a>
+              <form class="d-flex" role="search">
+                <input
+                  class="form-control me-2 sear"
+                  type="search"
+                  placeholder="Search for products"
+                  aria-label="Search"
+                />
+                <a href="/"
+                  ><img
+                    class="sear1"
+                    src="/img/2.png"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                /></a>
+              </form>
+              <div class="a" style="display: flex;">
+                <a href="/user/cart" style="width: 60%;"
+                  ><img class="a1" style="font-size: 2px;" src="/img/3.png" alt=""
+                />
+              </a>
+          
+              </div>
+              <a class="nav-link b" href="/">Home</a>
+              <% if(user) { %>
+              <a class="nav-link b" href="/api/auth/logout">Logout</a>
+              <p style="margin: 15px 0 0 20px; color: red;">Welcome <br><strong style="color: black;"><%= user.username %></strong></p>
+              <% } else { %>
+              <a class="nav-link b" href="/api/auth/login">Log in</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="container-filed">
+        <div class="row">
+          <div class="c">
+            <h2 class="c1">Your cart</h2>
+            <h3 class="c2">
+              products
+              <a href="/">
+              <button type="button" class="btn btn-outline-light c3">
+                <svg
+                  class="h1"
+                  width="6"
+                  height="13"
+                  viewBox="0 0 8 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0.247414 5.58789L5.02867 0.275391C5.35913 -0.0917969 5.89351 -0.0917969 6.22046 0.275391L7.01499 1.1582C7.34546 1.52539 7.34546 2.11914 7.01499 2.48242L3.62945 6.25195L7.01851 10.0176C7.34898 10.3848 7.34898 10.9785 7.01851 11.3418L6.22398 12.2285C5.89351 12.5957 5.35913 12.5957 5.03218 12.2285L0.25093 6.91602C-0.0830549 6.54883 -0.0830549 5.95508 0.247414 5.58789Z"
+                    fill="#FCFCFC"
+                  />
+                </svg>
+                continue shopping
+              </button>
+            </a>
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row table-row">
+          <% if (carts[0].products.length) { %>
+          <table class="table tabl">
+            <tbody>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Action</th>
+              </tr>
+              <% for (let i = 0; i<products.length; i++) { %>
+              <tr>
+                <td>
+                  <img
+                    src="/img/<%=products[i].category%>.png"
+                    class="table-img-1"
+                  />
+                </td>
+                <td>
+                  <a style="color: black; text-decoration: none;" href="/<%=products[i]._id%>"
+                    >
+                    <h5><%= products[i].name %></h5>
+                    </a
+                  >
+                  <div class="table-text-1">
+                    price per each
+                    <a class="table-text-a1" href="#"
+                      ><%= products[i].price %>$</a
+                    >
+                  </div>
+                  <div class="table-text-2">
+                    Total price
+                    <a class="table-text-a2" href="#"
+                      ><%= products[i].price * carts[0].products[i].quantity %>$</a
+                    >
+                  </div>
+                </td>
+                <td>
+
+                  <div style="display: flex;" class="table-div-img">
+
+                    <form id="edit" action="/user/cart/<%= products[i]._id %>?_method=PUT" method="POST">
+                      <input type="number" style="width: 40px;" name="quantity" value="<%= carts[0].products[i].quantity %>">
+                      <button type="submit" style="width: 20px;
+                      background-color: transparent;
+                      border: none;
+                      text-decoration: underline;
+                      cursor: pointer;
+                      ">
+                    <img class="table-img-4" style="width: 20px; height: 20px;"  src="/img/5.png" alt="" />
+                      </button>
+                    </form>
+                    
+                    <!-- <input type="number" style="width: 30px;" class="table-div-b" value="<%= carts[0].products[i].quantity %>"/> -->
+                  </div>
+                </td>
+                <td>
+                  <form action="/user/cart/<%= products[i]._id %>?_method=DELETE" method="POST">
+                    <button type="submit" style="
+                    background-color: transparent;
+                    padding: 10px 20px 10px 0;
+                    margin: 15px 0 0 30px;
+                    border: none;
+                    text-decoration: underline;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    ">
+                      <img class="table-img-4"  src="/img/6.png" alt="" />
+                    </button>       
+                    </form>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+          <% } else { %>
+            <div style="display: flex; justify-content: center;">
+            <h1 >No Product here</h1>
+          </div>
+            <% } %>
+        </div>
+        <div class="div-te">
+          <h5>Total price</h5>
+         
+          <%  let totalPrice = 0; %>
+          <% for (let i = 0; i < carts[0].products.length; i++) { %>
+          <%  totalPrice += products[i].price * carts[0].products[i].quantity; %>
+          <% } %>
+          
+          <a class="div-a" href="#"><%= totalPrice %>$</a><br />
+        </div>
+        <button type="button" class="btn div-btn">
+          <img class="div-btn-1" src="/img/17.png" alt="" />
+          proceed to checkout
+        </button>
+      </div>
+    </section>
+
+  </body>
+</html>

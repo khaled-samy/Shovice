@@ -1,0 +1,622 @@
+.sear {
+  position: absolute;
+  width: 600px;
+  height: 49px;
+  left: 290px;
+  top: 15px;
+  background: #e6e6e6;
+}
+
+.sear1 {
+  position: absolute;
+  margin-left: 600px;
+  margin-top: 28px;
+}
+
+.a {
+  width: 35px;
+  height: 35px;
+  background-color: #e6e6e6;
+  margin-left: 690px;
+  margin-top: 24px;
+  border-radius: 50%;
+}
+.a1 {
+  width: 17px;
+  height: 17px;
+  margin-left: 8px;
+  margin-top: 7px;
+}
+.b {
+  margin-left: 40px;
+  margin-top: 20px;
+  color: black;
+}
+.c {
+  background-color: #4e989a;
+  height: 275px;
+  margin-top: 40px;
+}
+.c1 {
+  padding: 40px;
+  margin-left: 70px;
+  color: white;
+}
+.c2 {
+  padding: 40px;
+  margin-left: 70px;
+  margin-top: 35px;
+  color: white;
+}
+.c3 {
+  margin-left: 800px;
+}
+
+.d {
+  text-align: center;
+  margin-top: 25px;
+}
+.e {
+  margin-top: 35px;
+  margin-left: 75px;
+  margin-bottom: 50px;
+}
+.e1 {
+  background-color: #c4c4c4;
+  color: black;
+}
+.e2 {
+  background-color: #c4c4c4;
+  margin-left: 45px;
+  color: black;
+}
+.f {
+  width: 100%;
+}
+.ff {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background-color: #e6e6e6;
+  border-radius: 50%;
+  margin-left: 20px;
+}
+.ff2 {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background-color: #e6e6e6;
+  border-radius: 50%;
+  margin-left: 65px;
+}
+.f1 {
+  color: #5e5e5e;
+  margin-left: 20px;
+  margin-top: 30px;
+}
+.f2 {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+.f3 {
+  margin-left: 20px;
+  margin-top: 35px;
+}
+.f4 {
+  width: 17px;
+  height: 17px;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+.f5 {
+  width: 17px;
+  height: 17px;
+  margin-left: 9px;
+  margin-top: 5px;
+}
+.f6 {
+  margin-right: 150px;
+}
+.g {
+  margin-bottom: 100px;
+}
+.g1 {
+  margin-top: 100px;
+}
+.ff1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+}
+.h {
+  margin-top: 65px;
+  margin-left: 1100px;
+}
+.h1 {
+  margin-right: 3px;
+  margin-bottom: 2px;
+}
+.i {
+  width: 720px;
+  height: 550px;
+  margin-top: 15px;
+  margin-left: 30px;
+}
+.j {
+  padding: 100px;
+  margin-top: 20px;
+}
+.j1 {
+  background-color: #dfedf1;
+  width: 530px;
+  height: 180px;
+  padding: 30px;
+}
+.j2 {
+  color: #033f88;
+}
+.j3 {
+  margin-top: 25px;
+}
+.j4 {
+  float: right;
+  margin-right: 20px;
+}
+
+.k {
+  background-color: #4e989a;
+  margin-left: 220px;
+  margin-top: 130px;
+  color: white;
+  width: 250px;
+}
+.k1 {
+  width: 17px;
+  height: 17px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+.l {
+  margin-top: 50px;
+}
+.l1 {
+  margin-top: 60px;
+}
+.m {
+  width: 110%;
+  margin-top: 20px;
+}
+.mm {
+  margin-right: 15px;
+}
+.m1 {
+  margin-top: 50px;
+}
+.cont_footer {
+  background-color: #e6e6e6;
+}
+.img_footer {
+  margin-left: 90px;
+}
+.footer {
+  margin-top: -150px;
+  padding: 180px;
+  margin-left: 40px;
+}
+.footer1 {
+  margin-left: 15px;
+}
+.footer_1 {
+  margin-left: 35px;
+}
+.footer2 {
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin-top: 10px;
+  margin-left: 35px;
+  margin-right: 8px;
+}
+
+.footer_2 {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-top: 17px;
+  margin-left: 35px;
+  margin-right: 8px;
+}
+
+.footer3 {
+  margin-top: -120px;
+}
+.footer_3 {
+  margin-left: 90px;
+  float: left;
+  padding: 17px;
+  color: #4e989a;
+}
+.footer4 {
+  float: right;
+  padding: 15px;
+  margin-right: 90px;
+}
+.footer_4 {
+  width: 20px;
+  height: 20px;
+}
+.tabl {
+  width: 800px;
+  margin-top: 100px;
+}
+.table-row {
+  margin-left: 200px;
+}
+
+.table-img-1 {
+  width: 150px;
+  height: 100px;
+}
+
+.table-text-1 {
+  margin-top: 20px;
+}
+.table-text-a1 {
+  margin-left: 45px;
+  text-decoration: none;
+  color: #4e989a;
+}
+.table-text-a2 {
+  margin-left: 72px;
+  text-decoration: none;
+  color: #4e989a;
+}
+.table-text-2 {
+  margin-top: 5px;
+}
+.table-img-2 {
+  width: 13px;
+  height: 13px;
+}
+.table-img-3 {
+  width: 15px;
+  height: 3px;
+}
+.table-img-4 {
+  width: 15px;
+  height: 15px;
+  margin-left: 30px;
+}
+.table-div-img {
+  margin-top: 17px;
+  margin-left: 5px;
+}
+.table-div-b {
+  margin-left: 10px;
+  margin-right: 12px;
+}
+.div-te {
+  margin-left: 845px;
+}
+.div-a {
+  text-decoration: none;
+  color: #4e989a;
+  margin-left: 25px;
+}
+.div-btn {
+  background-color: #4e989a;
+  margin-left: 690px;
+  margin-top: 30px;
+  margin-bottom: 100px;
+  color: white;
+  width: 250px;
+  height: 40px;
+}
+.div-btn-1 {
+  width: 17px;
+  height: 17px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 30px;
+  float: left;
+}
+
+.login-div {
+  position: absolute;
+  width: 760px;
+  height: 650px;
+  left: 296px;
+  top: 167px;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+}
+
+.div-h1 {
+  color: #4e989a;
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.background {
+  background-color: #e6e6e6;
+  margin-bottom: 40px;
+}
+.login-btn {
+  width: 200px;
+  height: 35px;
+  background-color: #4e989a;
+  border: #4e989a;
+  color: white;
+  border-radius: 0.1cm;
+  margin-left: 75px;
+  margin-top: 20px;
+}
+
+.add-div {
+  position: absolute;
+  width: 760px;
+  height: 660px;
+  left: 296px;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+}
+.add-h1 {
+  color: #4e989a;
+  text-align: center;
+  margin-top: 35px;
+  margin-bottom: 60px;
+}
+.add-background {
+  background-color: #e6e6e6;
+  margin-bottom: 40px;
+  width: 100px;
+  text-align: center;
+}
+.category {
+  margin-top: -102px;
+  margin-left: 140px;
+}
+.add-btn {
+  width: 100px;
+  height: 40px;
+  background-color: #4e989a;
+  border: #4e989a;
+  color: white;
+  border-radius: 0.1cm;
+  float: right;
+}
+.add-create {
+  margin-left: 15px;
+}
+
+.conformbtn {
+  background-color: #04aa6d;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.conformbtn:hover {
+  opacity: 1;
+}
+
+/* Float cancel and delete buttons and add an equal width */
+.cancelbtn,
+.deletebtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add a color to the cancel button */
+.cancelbtn {
+  background-color: #ccc;
+  color: black;
+}
+
+/* Add a color to the delete button */
+.deletebtn {
+  background-color: #f44336;
+}
+
+/* Add padding and center-align text to the container */
+.container {
+  padding: 16px;
+  text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* The Modal Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn,
+  .deletebtn {
+    width: 100%;
+  }
+}
+
+.admin-table,
+.admin-table th,
+.admin-table td {
+  border: 1px solid black;
+
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 10px;
+}
+
+.admin-table th {
+  background-color: #4e989a;
+  color: #fff;
+}
+
+.admin-table colgroup {
+  width: 250px;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: #fff;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,
+.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  background-color: #419a9e;
+  padding: 10px 10px;
+  color: #fff;
+  margin: 10px 0;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover,
+.same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.change {
+  padding: 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.change:link,
+.change:visited {
+  background-color: white;
+  color: black;
+  border: 2px solid green;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.change:hover,
+.change:active {
+  background-color: green;
+  color: white;
+}
+
+.filter {
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  color: #2f65d2;
+}
+
+.filter:link,
+.filter:visited {
+  background-color: white;
+  color: black;
+  border: 2px solid green;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.filter:hover,
+.filter:active {
+  background-color: green;
+  color: white;
+}

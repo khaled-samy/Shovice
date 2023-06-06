@@ -1,0 +1,49 @@
+<div style="display: flex; flex-wrap: wrap">
+  <% products.forEach((product, index) => { %>
+  <div style="width: 50%; display: flex">
+    <div class="col-3 m1" style="width: 50%">
+      <p class="f1"><%= product.category %></p>
+      <a
+        style="color: black; text-decoration: none"
+        href="product/<%=product.id%>"
+        ><h5 class="f2"><%=product.name%></h5></a
+      >
+      <div class="buying ff1">
+        <b class="f3">$<%= product.price %></b>
+        <div class="f6">
+          <form
+            action="/user/cart/add/<%= product.id %>?_method=POST"
+            method="POST"
+          >
+            <button
+              type="submit"
+              class="ff2"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <img
+                style="margin-right: 10px"
+                class="f5"
+                src="img/3.png"
+                alt=""
+              />
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 g" style="width: 30%">
+      <img
+        class="m"
+        style="width: 100%; height: 80%"
+        src="img/<%= product.category %>.png"
+        alt=""
+      />
+    </div>
+  </div>
+  <% }) %>
+</div>

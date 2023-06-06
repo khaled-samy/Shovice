@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/lib/bootstrap-5.1.3-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/lib/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+    <title>Home</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-middle">
+        <div class="container">
+          <div class="row">
+            <div class="nav">
+              <a href="/"
+                ><img src="/img/1.png" alt="" width="137px" height="69px"
+              /></a>
+              <form class="d-flex" role="search">
+                <input
+                  class="form-control me-2 sear"
+                  type="search"
+                  placeholder="Search for products"
+                  aria-label="Search"
+                />
+                <a href="/"
+                  ><img
+                    class="sear1"
+                    src="/img/2.png"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                /></a>
+              </form>
+              <div class="a" style="display: flex">
+                <a href="/user/cart" style="width: 60%"
+                  ><img
+                    class="a1"
+                    style="font-size: 2px"
+                    src="/img/3.png"
+                    alt=""
+                  />
+                </a>
+              </div>
+              <a class="nav-link b" href="/">Home</a>
+              <% if(user) { %>
+              <a class="nav-link b" href="/api/auth/logout">Logout</a>
+              <p style="margin: 15px 0 0 20px; color: red">
+                Welcome <br /><strong style="color: black"
+                  ><%= user.username %></strong
+                >
+              </p>
+              <% } else { %>
+              <a class="nav-link b" href="/api/auth/login">Log in</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="container-filed">
+        <div class="row">
+          <div class="c">
+            <h2 class="c1">Home</h2>
+            <h3 class="c2">
+              products
+              <a href="/">
+                <button type="button" class="btn btn-outline-light c3">
+                  Home
+                </button>
+              </a>
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <img class="i" src="/img/<%= product.category %>.png" alt="" />
+        </div>
+        <div class="col-6 j">
+          <div class="j1">
+            <h3 class="j2"><%= product.name %></h3>
+            <div class="j4">
+              <h2><%= product.desc %></h2>
+            </div>
+            <div>
+              <h5 class="j3">$<%= product.price %></h5>
+              <h5><%= product.category %></h5>
+            </div>
+          </div>
+
+          <% if(user && user.isAdmin) { %>
+          <div
+            style="
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+              padding: 20px;
+              margin: 20px;
+            "
+          >
+            <button
+              type="button"
+              style="
+                background-color: red;
+                color: rgb(255, 255, 255);
+                width: 40%;
+                padding: 5px 0;
+              "
+            >
+              <img class="k1" src="img/6.png" alt="" />
+              Delete
+            </button>
+
+            <button
+              type="button"
+              style="
+                background-color: #4e989a;
+                color: rgb(255, 255, 255);
+                width: 40%;
+                padding: 5px 0;
+              "
+            >
+              <img class="k1" src="img/5.png" alt="" />
+              Edit
+            </button>
+
+            <button
+              class="delete"
+              data-target="/api/admin/product/<%= product.id %>"
+              data-method="DELETE"
+              data-disabled="true"
+            >
+              Delete Article
+            </button>
+          </div>
+          <% } else { %>
+          <form
+            action="/user/cart/add/<%= product.id %>?_method=POST"
+            method="POST"
+          >
+            <button type="submit" class="btn k">
+              <img class="k1" src="img/8.png" alt="" />
+              Add to cart
+            </button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
