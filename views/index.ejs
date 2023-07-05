@@ -4,80 +4,85 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/img/title.png" type="image/icon type">
     <link rel="stylesheet" href="/lib/bootstrap-5.1.3-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css" />
     <script src="/lib/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
-    <title>Home</title>
+    <script src="https://kit.fontawesome.com/e609f8dd22.js" crossorigin="anonymous"></script>
+    <title>Shovice</title>
   </head>
   <body>
+
     <header>
-      <div class="header-middle">
-        <div class="container">
-          <div class="row">
-            <div class="nav">
-              <a href="/"
-                ><img src="/img/1.png" alt="" width="137px" height="69px"
+      <div class="header-container" style="display: flex; padding: 0 150px;">
+        <div class="header-img">
+          <a href="/"
+                ><img src="/img/1.png" alt="" width="150px" height="80px"
               /></a>
-              <form class="d-flex" role="search">
-                <input
-                  class="form-control me-2 sear"
-                  type="search"
-                  placeholder="Search for products"
-                  aria-label="Search"
-                />
-                <a href="/"
-                  ><img
-                    class="sear1"
-                    src="/img/2.png"
-                    alt=""
-                    width="22px"
-                    height="22px"
-                /></a>
-              </form>
-              <div class="a" style="display: flex;">
-                <a href="/user/cart" style="width: 60%;"
-                  ><img class="a1" style="font-size: 2px;" src="img/3.png" alt=""
-                />
-              </a>
-          
-              </div>
-              <a class="nav-link b" href="/">Home</a>
-              <% if(user) { %>
-              <a class="nav-link b" href="/api/auth/logout">Logout</a>
-              <p style="margin: 15px 0 0 20px; color: red;">Welcome <br><strong style="color: black;"><%= user.username %></strong></p>
-              <% } else { %>
-              <a class="nav-link b" href="/api/auth/login">Log in</a>
-              <% } %>
-            </div>
-          </div>
         </div>
+        <div class="header-search">
+          <form action="">
+            <input class="search-bar" type="text" placeholder="Search for products.." name="search">
+            <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+        <% if(user) { %>
+        <div class="header-items" style="display: flex;">
+          <% if(!user.isAdmin) { %>
+            <a href="/user/cart" class="cart-btn"
+              ><i class="fa-solid fa-cart-shopping"></i>
+          </a>
+          <% } else { %>
+            <a href="/api/admin/product" class="cart-btn"
+              ><i class="fa-solid fa-circle-plus"></i>
+          </a>
+            <% } %>
+          <a class="nav-link b" href="/">Home</a>
+          <a class="nav-link b" href="/api/auth/logout">Logout</a>
+        </div>
+
+          <p style="margin: 15px 0 0 20px; color: red;">Welcome <br><strong style="color: black;"><%= user.username %></strong></p>
+          <% } else { %>
+            <div class="header-items" style="display: flex;">
+              <a href="/user/cart" class="cart-btn"
+                ><i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            <a class="nav-link b" href="/">Home</a>
+          <a class="nav-link b" href="/api/auth/login">Log in</a>
+          <% } %>
+          </div>
       </div>
     </header>
 
     <section>
-
-      
-
-      <div class="container-filed">
-        <div class="row">
-          <div class="c">
-            <h2 class="c1">Home</h2>
-            <h3 class="c2">
-              
-              products <% if(user && user.isAdmin) { %>
+      <div class="w3-container w3-padding welcome-container" style="background-color: #4e989a;" id="myHeader">
+        <div class="w3-center" style="padding: 20px;">
+          <h1 class="w3-xxxlarge w3-animate-bottom" style="color: white;">Welcome to Shovice</h1>
+        <h4 style="padding-top: 15px; color: white;">Ecommerce website that allows users to buy Electronic products online</h4>
+          <div class="w3-padding-32">
+            <% if(user && user.isAdmin) { %>
               <a href="/api/admin/product">
-                <button type="button" class="btn btn-outline-light c3">
+                <button type="button" class="btn btn-outline-light" style="padding: 10px 40px">
                   Add product +
                 </button>
               </a>
-              <% } else { %>
+              <% } else if (user && !user.isAdmin) { %>
               <a href="/user/cart">
-                <button type="button" class="btn btn-outline-light c3">
+                <button type="button" class="btn btn-outline-light" style="padding: 10px 40px">
                   Go to cart
                 </button>
               </a>
+              <% } else { %>
+                <a href="/user/cart">
+                <button type="button" onclick="alert('Login with our website to can buy!')" class="btn btn-outline-light" style="padding: 10px 40px">
+                  Go to cart
+                </button>
+              </a>
+
               <% } %>
-            </h3>
           </div>
         </div>
       </div>
@@ -99,8 +104,8 @@
       </div>
       <div class="e" style="display: flex; justify-content: center;">
 
-        <% if (!user || !user.isAdmin) {%>
-<div style="margin: 0 30px">
+        <% if (!user.isAdmin) {%>
+        <div style="margin: 0 30px">
         <label><strong>You can change the look of the site: </strong></label><br/>
         <select id="templete" name="templete" class="select-items" style="width:200px;">
           <option value="" selected>Select a look</option>
@@ -128,14 +133,7 @@
         <div class="row">
 
           <% if(user && user.isAdmin) { %>
-          
           <table class="admin-table" style="width:100%">
-            <colgroup>  
-              <col>  
-              <col>   
-              <col>
-              <col>
-            </colgroup>
             <tr>
               <th style="width:30%">Name</th>
               <th style="width:40%">Details</th>
@@ -145,52 +143,41 @@
             </tr>
             <% products.forEach(product=> { %>
             <tr>
-            <td><a style="text-decoration: none; color: red;" href="/<%= product.id %>"><strong><%= product.name %></strong></a></td>
+            <td><a style="text-decoration: none; color: red;" href="product/<%=product.id%>"><strong><%= product.name %></strong></a></td>
             <td><strong><%= product.desc %></strong></td>
             <td><strong><%= product.category %></strong></td>
             <td><strong><%= product.price %></strong></td>
             <td>
-              <div  style="display: flex; align-items: center;">
-                <a class="ff" href="/api/admin/product/<%= product.id %>"
-                 style="
-                   background-color: transparent;
-                      border: none;
-                      text-decoration: underline;
-                      cursor: pointer;
-                  " ><img class="f4" src="/img/5.png" alt=""
-                /></a>
-
-                <form action="/api/admin/product/<%= product.id %>?_method=DELETE" method="POST" style=" margin-bottom: 25px;">
-                  <button type="submit" class="ff2" style="display: flex; 
-                 
-                  background-color: transparent;
-                      border: none;
-                      text-decoration: underline;
-                      cursor: pointer;
-                  "><img class="f5" src="img/6.png" alt=""
-                    /></button>
+              <div style="display: flex; justify-content: space-around;" class="action-btns">
+                <a class="" href="/api/admin/product/<%= product.id %>" style="font-size: 20px;"><i class="fa-solid fa-trash"></i></a>
+                <form action="/api/admin/product/<%= product.id %>?_method=DELETE" method="POST" >
+                  <div class="button-container">
+                  <button type="submit" class="product-edit" 
+                  ><i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                  </div>
                 </form>
                 </div>
             </td>
             </tr>
             <% }) %>
             </table>
-
             <% } else { %>
+
           <% products.forEach(product=> { %>
-            <div class="col-4 g">
+            
+            <div class="products-box">
               <img style="height: 60%; width: 80%;" class="f" src="img/<%=product.category%>.png" alt="" />
               <p style="text-align: start;" class="f1"><%=product.category%></p>
-              <a style="color: black; text-decoration: none; " href="product/<%=product.id%>"
-                ><h5 class="f2"><%=product.name%></h5></a
+              <a style="text-decoration: none;" href="product/<%=product.id%>"
+                ><h5 class="f2" style="font-weight: 600;"><%=product.name%></h5></a
               >
               <div class="buying ff1">
                 <b class="f3">$<%=product.price%></b>
      
                   <div class="f6">
                     <form action="/user/cart/add/<%= product.id %>?_method=POST" method="POST">
-                      <button type="submit" class="ff2" style="display: flex; align-items: center; justify-content: center;"><img  style="margin-right: 10px" class="f5" src="img/3.png" alt=""
-                        /></button>
+                      <button type="submit" class="add-cart-btn"><i class="fa-solid fa-cart-shopping add-cart-icon"></i></button>
                     </form>
 
                   </div>
@@ -201,6 +188,94 @@
           
       </div>
     </section>
+
+
+    <% if (!user.isAdmin && !category) {%>
+    <section class="owen-container info-container">
+      <div class="top-products-container">
+        <div class="product-box-title">
+          <h2 class="info-title">Top Products</h2>
+          <p>Top</p>
+        </div>
+        <hr style="margin-top: 0;"/>
+
+        <% topProducts.forEach((product, index)=> { %>
+        <div class="product-box">
+          <div class="product-box-img">
+            <img class="product-box-img" src="img/<%=product.category%>.png" alt="" />
+          </div>
+          <div class="product-box-info">
+            <div class="product-box-header">
+              <a href="product/<%=product.id%>" style="text-decoration: none;">
+                <h4 class="product-box-name"><%=product.name%></h4>
+              </a>
+              <p>#<%= index + 1 %></p>
+            </div>
+              <p class="product-box-details"><%=product.desc%></p>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+
+      <div class="vl"></div>
+
+      <div class="new-products-container">
+        <div class="product-box-title">
+          <h2 class="info-title" style="padding-left: 20px;">New Products</h2>
+          <p style="background: red;">New</p>
+        </div>
+        <hr style="margin-top: 0;"/>
+        <% newProducts.forEach((product, index)=> { %>
+          <div class="product-box">
+            <div class="product-box-img">
+              <img class="product-box-img" src="img/<%=product.category%>.png" alt="" />
+            </div>
+            <div class="product-box-info">
+              <div class="product-box-header">
+                <a href="product/<%=product.id%>" style="text-decoration: none;">
+                  <h4 class="product-box-name"><%=product.name%></h4>
+                </a>
+                <p style="background-color: rgba(255, 0, 0, 0.623);">#<%= index + 1 %></p>
+              </div>
+                <p class="product-box-details"><%=product.desc%></p>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+
+      <div class="vl"></div>
+
+      <div class="top-users-container">
+        <h2 class="info-title">Top Users</h2>
+        <hr/>
+        <div class="users-box">
+        <% topUsers.forEach((user, index)=> { %>
+          <div class="user-box">
+              <p class="user-box-name"><span style="color: #ff0000; padding-right: 5px;">#<%= index + 1 %></span> <%=user.username%></p>
+          </div>
+          <% }) %>
+          <hr style="color: black;"/>
+          <div class="user-contact">
+            <div>
+              <h3>You want to be in this list? 
+                <a href="/api/auth/login" style="text-decoration: none; font-weight: 600;">
+                  Login now
+                </a>
+              </h3>
+              <p style="padding-top: 10px;">Dont forget to contact with us!</p>
+            </div>
+            <div >
+              <a style="padding-right: 10px;" href="#"><img src="img/12.png" alt="" class="footer_4" /></a>
+              <a style="padding-right: 10px;" href="#"><img src="img/13.png" alt="" class="footer_4" /></a>
+              <a style="padding-right: 10px;" href="#"><img src="img/14.png" alt="" class="footer_4" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <% } %>
 
     <footer>
       <div class="container-fluid cont_footer">

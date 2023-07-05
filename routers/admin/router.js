@@ -9,6 +9,9 @@ const Product = require("../../models/product");
 const verifyAccessToken = require("../../middlewere/token");
 const checkAdmin = require("../../middlewere/checkAdmin");
 
+router.use(verifyAccessToken);
+router.use(checkAdmin);
+
 router
   .route("/product")
   .get((req, res) => {
@@ -25,8 +28,5 @@ router
   })
   .put(editProduct)
   .delete(deleteProduct);
-
-router.use(verifyAccessToken);
-router.use(checkAdmin);
 
 module.exports = router;

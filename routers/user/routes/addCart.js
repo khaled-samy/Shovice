@@ -12,7 +12,6 @@ exports.addCart = async (req, res) => {
 
     let cart = await Cart.findOne({ userId: userId });
     if (cart) {
-      console.log(11111111, cart);
       const productIndex = cart.products.findIndex(
         (item) => item.productId == productId
       );

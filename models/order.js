@@ -16,18 +16,18 @@ const orderSchema = new mongoose.Schema({
       },
     },
   ],
-  amount: {
-    type: Number,
-    required: true,
-  },
-  address: {
-    type: Object,
-    required: true,
-  },
-  status: {
-    type: String,
-    default: "pending",
-  },
+  info: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("Order", orderSchema);

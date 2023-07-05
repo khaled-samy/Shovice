@@ -20,7 +20,7 @@ const verifyAccessToken = (req, res, next) => {
   }
 
   if (!token) {
-    return res.status(403).send("A token is required for authentication");
+    res.redirect("/api/auth/login");
   }
   try {
     const decoded = jwt.verify(token, process.env.TOKEN_KEY);

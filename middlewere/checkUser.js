@@ -8,7 +8,7 @@ const checkUser = async (req, res, next) => {
   if (user) {
     next();
   } else {
-    res.status(403).json("Not allowed");
+    res.redirect("api/auth/login");
   }
 };
 
