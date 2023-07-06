@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../../../models/user");
 const Cart = require("../../../models/cart");
+const Product = require("../../../models/product");
 
 exports.addCart = async (req, res) => {
   try {
@@ -9,31 +10,45 @@ exports.addCart = async (req, res) => {
     const user = jwt.decode(req.cookies.jwt);
     const loggedUser = await User.findOne({ username: user.username });
     const userId = loggedUser.id;
-
-    let cart = await Cart.findOne({ userId: userId });
-    if (cart) {
-      const productIndex = cart.products.findIndex(
-        (item) => item.productId == productId
-      );
-      if (productIndex > -1) {
-        cart.products[productIndex].quantity += quantity;
-        cart = await cart.save();
+    let myProduct = await Product.findOne({ _id: productId });
+    const { availability } = myProduct;
+    if (availability) {
+      let cart = await Cart.findOne({ userId: userId });
+      if (cart) {
+        const productIndex = cart.products.findIndex(
+          (item) => item.productId == productId
+        );
+        if (productIndex > -1) {
+          cart.products[productIndex].quantity += quantity;
+          myProduct.availability -= 1;
+          myProduct = await myProduct.save();
+          cart = await cart.save();
+          res.redirect("/");
+        } else {
+          cart.products.push({ productId: productId, quantity: quantity });
+          myProduct.availability -= 1;
+          myProduct = await myProduct.save();
+          cart = await cart.save();
+          res.redirect("/");
+        }
       } else {
-        cart.products.push({ productId: productId, quantity: quantity });
-        cart = await cart.save();
+        let newCart = new Cart({
+          userId: userId,
+          products: [
+            {
+              productId: productId,
+              quantity: quantity,
+            },
+          ],
+        });
+
+        myProduct.availability -= 1;
+        myProduct = await myProduct.save();
+        newCart = await newCart.save();
+        res.redirect("/");
       }
     } else {
-      let newCart = new Cart({
-        userId: userId,
-        products: [
-          {
-            productId: productId,
-            quantity: quantity,
-          },
-        ],
-      });
-
-      newCart = await newCart.save();
+      res.json("No availability of this product!");
     }
   } catch (err) {
     console.log(err);

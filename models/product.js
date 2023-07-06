@@ -5,6 +5,10 @@ const productsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  brand: {
+    type: String,
+    required: true,
+  },
   category: {
     type: String,
     enum: ["laptop", "phone", "screen"],
@@ -14,7 +18,17 @@ const productsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  size: {
+    type: String,
+  },
+  color: {
+    type: String,
+  },
   price: {
+    type: Number,
+    required: true,
+  },
+  availability: {
     type: Number,
     required: true,
   },

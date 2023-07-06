@@ -1,5 +1,6 @@
 const Cart = require("../../../models/cart");
 const User = require("../../../models/user");
+const Product = require("../../../models/product");
 const jwt = require("jsonwebtoken");
 
 exports.deleteCart = async (req, res) => {
@@ -7,6 +8,7 @@ exports.deleteCart = async (req, res) => {
     const user = jwt.decode(req.cookies.jwt);
     const loggedUser = await User.findOne({ username: user.username });
     const userId = loggedUser._id;
+    const { productId } = req.params;
 
     let cart = await Cart.find({ userId: userId });
     if (!cart) {
@@ -18,7 +20,11 @@ exports.deleteCart = async (req, res) => {
       if (productIndex === -1) {
         res.status(404).send("Product not found in cart");
       } else {
+        let myProduct = await Product.findOne({ _id: productId });
+        const { quantity } = cart[0].products[productIndex];
         cart[0].products.splice(productIndex, 1);
+        myProduct.availability += quantity;
+        myProduct = await myProduct.save();
         cart = await cart[0].save();
         res.redirect("/user/cart");
       }

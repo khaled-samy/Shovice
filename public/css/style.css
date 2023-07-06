@@ -16,14 +16,10 @@
 }
 
 .search-bar {
-  padding: 8px 0;
+  padding: 8px 15px;
   width: 92%;
   margin-top: 18px;
   font-size: 17px;
-}
-
-.search-bar::placeholder {
-  padding-left: 15px;
 }
 
 .search-btn {
@@ -386,7 +382,7 @@
 }
 
 .action-btns a:hover {
-  color: red;
+  color: #036beb;
 }
 
 .product-edit {
@@ -396,7 +392,7 @@
 }
 
 .button-container .product-edit:hover {
-  color: #036beb;
+  color: red;
 }
 
 .login-div {

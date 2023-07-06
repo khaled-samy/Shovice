@@ -20,6 +20,7 @@ exports.addOrder = async (req, res) => {
         const { productId, quantity } = product;
 
         const existingOrder = await Order.findOne({ userId: userId });
+        console.log(2222, existingOrder);
 
         if (existingOrder) {
           const updatedProducts = [...existingOrder.products];

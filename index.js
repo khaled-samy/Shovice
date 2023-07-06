@@ -173,6 +173,8 @@ app.post("/", async (req, res) => {
       }
     }
     res.render("index.ejs", { user: "", products: products, category: true });
+  } else {
+    res.redirect("/");
   }
 });
 

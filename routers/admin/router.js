@@ -23,7 +23,6 @@ router
   .route("/product/:id")
   .get(async (req, res) => {
     const product = await Product.findById(req.params.id);
-    console.log(888888, product);
     res.render("product/edit", { product: product });
   })
   .put(editProduct)

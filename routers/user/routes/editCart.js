@@ -1,7 +1,6 @@
 const Cart = require("../../../models/cart");
 
 exports.editCart = async (req, res) => {
-  //   res.redirect("../../..");
   try {
     const updatedCart = await Cart.findByIdAndUpdate(
       req.params.id,
