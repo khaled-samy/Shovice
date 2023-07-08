@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { addCart } = require("./routes/addCart");
-const { editCart } = require("./routes/editCart");
 const { deleteCart } = require("./routes/deleteCart");
 const { getCart } = require("./routes/getCart");
 const { updateCart } = require("./routes/updateCart");

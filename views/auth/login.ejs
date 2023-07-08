@@ -35,6 +35,9 @@
                 required
               />
             </div>
+            <% if (message) { %>
+            <p style="color: red"><%= message %></p>
+            <% } %>
             <button type="submit" class="login-btn">Log In</button>
           </form>
           <p style="text-align: center; margin: 30px 0">

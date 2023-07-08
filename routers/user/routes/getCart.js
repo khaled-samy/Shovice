@@ -2,6 +2,7 @@ const User = require("../../../models/user");
 const Cart = require("../../../models/cart");
 const Product = require("../../../models/product");
 const jwt = require("jsonwebtoken");
+const countryOptions = require("../../../services/utils/getCountryOptions");
 
 exports.getCart = async (req, res) => {
   try {
@@ -21,6 +22,7 @@ exports.getCart = async (req, res) => {
         products: cartProducts,
         carts: carts,
         user: user,
+        countryOptions,
       });
     } else {
       let newCart = new Cart({
@@ -41,9 +43,11 @@ exports.getCart = async (req, res) => {
           products: [],
         },
         user: "",
+        countryOptions,
       });
     }
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err);
+    res.render("error/500");
   }
 };

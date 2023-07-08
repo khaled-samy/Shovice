@@ -3,6 +3,9 @@ const router = express.Router();
 const { addProduct } = require("./routes/addProduct");
 const { editProduct } = require("./routes/editProduct");
 const { deleteProduct } = require("./routes/deleteProduct");
+const { getUsersOrder } = require("./routes/getUsersOrder");
+const { getUserOrder } = require("./routes/getUserOrder");
+const { updateOrderStatus } = require("./routes/updateOrderStatus");
 
 const Product = require("../../models/product");
 
@@ -27,5 +30,8 @@ router
   })
   .put(editProduct)
   .delete(deleteProduct);
+
+router.get("/users-order", getUsersOrder);
+router.route("/user-order/:orderId").get(getUserOrder).put(updateOrderStatus);
 
 module.exports = router;

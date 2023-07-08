@@ -19,7 +19,7 @@
       <div class="header-container" style="display: flex; padding: 0 150px;">
         <div class="header-img">
           <a href="/"
-                ><img src="/img/1.png" alt="" width="150px" height="80px"
+                ><img src="/favicon.ico" alt="" width="150px" height="80px"
               /></a>
         </div>
         <div class="header-search">
@@ -76,9 +76,9 @@
         <h4 style="padding-top: 15px; color: white;">Ecommerce website that allows users to buy Electronic products online</h4>
           <div class="w3-padding-32">
             <% if(user && user.isAdmin) { %>
-              <a href="/api/admin/product">
+              <a href="/api/admin/users-order">
                 <button type="button" class="btn btn-outline-light" style="padding: 10px 40px">
-                  Add product +
+                  All Orders
                 </button>
               </a>
               <% } else if (user && !user.isAdmin) { %>
@@ -120,7 +120,7 @@
         <div style="margin: 0 30px">
         <label><strong>You can change the look of the site: </strong></label><br/>
         <select id="templete" name="templete" class="select-items" style="width:200px;">
-          <option value="" selected>Select a look</option>
+          <option disabled value="" selected>Select a look</option>
            <option value="first">1</option>
            <option value="secound">2</option>
            <option value="third">3</option>
@@ -132,7 +132,8 @@
         <form method="post" action="/" style="margin: 0 30px">
         <label><strong>You can filter the products by category: </strong></label><br/>
         <select id="category" name="category" class="select-items" style="width:200px;">
-         <option value="" selected>Select a category</option>
+         <option disabled value="" selected>Select a category</option>
+         <option value="" >All</option>
           <option value="laptop">Laptop</option>
           <option value="phone">Phone</option>
           <option value="screen">Screen</option>
@@ -153,6 +154,7 @@
               <th style="width:5%">price</th>
               <th style="width:10%">action</th>
             </tr>
+            <% if (products.length > 0) { %>
             <% products.forEach(product=> { %>
             <tr>
             <td><a style="text-decoration: none; color: red;" href="product/<%=product.id%>"><strong><%= product.name %></strong></a></td>
@@ -164,7 +166,7 @@
                 <a href="/api/admin/product/<%= product.id %>" style="font-size: 20px;"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form action="/api/admin/product/<%= product.id %>?_method=DELETE" method="POST" >
                   <div class="button-container">
-                  <button type="submit" class="product-edit" 
+                  <button onclick="confirm('Are you sure, that you want to delete this products?')" type="submit" class="product-edit" 
                   >
                   <i class="fa-solid fa-trash"></i>
                 </button>
@@ -174,12 +176,22 @@
             </td>
             </tr>
             <% }) %>
+            <% } else { %>
+              <tr>
+                <td></td>
+                <td>No poduct available now, you can add new <a style="color: #ff0000;" href="/api/admin/product">here</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            
+              <% } %>
             </table>
             <% } else { %>
           <% products.forEach(product=> { %>
             
             <div class="products-box">
-              <img style="height: 60%; width: 80%;" class="f" src="img/<%=product.category%>.png" alt="" />
+              <img style="height: 60%; width: 80%;" class="producs-box-img" src="img/<%=product.category%>.png" alt="" />
               <p style="text-align: start;" class="f1"><%=product.category%></p>
               <a style="text-decoration: none;" href="product/<%=product.id%>"
                 ><h5 class="f2" style="font-weight: 600;"><%=product.name%></h5></a
@@ -229,7 +241,9 @@
               <a href="product/<%=product.id%>" style="text-decoration: none;">
                 <h4 class="product-box-name"><%=product.name%></h4>
               </a>
-              <p>#<%= index + 1 %></p>
+              <div style="padding: 0;">
+                <p >#<%= index + 1 %></p>
+              </div>
             </div>
               <p class="product-box-details"><%=product.desc%></p>
           </div>
@@ -255,7 +269,10 @@
                 <a href="product/<%=product.id%>" style="text-decoration: none;">
                   <h4 class="product-box-name"><%=product.name%></h4>
                 </a>
-                <p style="background-color: rgba(255, 0, 0, 0.623);">#<%= index + 1 %></p>
+                <div style="padding: 0;">
+                  <p style="background-color: rgba(255, 0, 0, 0.623);">#<%= index + 1 %></p>
+                </div>
+
               </div>
                 <p class="product-box-details"><%=product.desc%></p>
             </div>
@@ -294,7 +311,6 @@
       </div>
 
     </section>
-
     <% } %>
 
     <footer>

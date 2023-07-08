@@ -1,34 +1,67 @@
 const jwt = require("jsonwebtoken");
 const User = require("../../../models/user");
 const Cart = require("../../../models/cart");
+const Product = require("../../../models/product");
 
 exports.updateCart = async (req, res) => {
-  const { productId } = req.params;
-
   const user = jwt.decode(req.cookies.jwt);
   const loggedUser = await User.findOne({ username: user.username });
   const userId = loggedUser._id;
-  const quantity = parseInt(req.body.quantity);
+  const { quantity } = req.body;
 
-  try {
-    const cart = await Cart.findOne({ userId: userId });
+  const { productId } = req.params;
+  const action = req.body.plus ? "plus" : req.body.minus ? "minus" : null;
 
-    if (!cart) {
-      return res.status(404).json({ message: "Cart not found" });
+  let cart = await Cart.find({ userId: userId });
+  let product = await Product.find({ _id: productId });
+
+  if (action === "plus") {
+    try {
+      if (product[0].availability > 0) {
+        const updatedCart = await Cart.findOneAndUpdate(
+          {
+            userId: userId,
+            "products.productId": productId,
+          },
+          { $inc: { "products.$.quantity": 1 } },
+          { new: true }
+        );
+        product[0].availability -= 1;
+        product[0] = await product[0].save();
+        res.redirect("/user/cart");
+      } else {
+        res.json("No available for this product!");
+      }
+    } catch (err) {
+      console.log(err);
+      res.render("error/500");
     }
-
-    const productIndex = cart.products.findIndex(
-      (p) => p.productId === productId
-    );
-
-    if (productIndex === -1) {
-      return res.status(404).json({ message: "Product not found in cart" });
+  } else if (action === "minus") {
+    try {
+      if (quantity > 1) {
+        const updatedCart = await Cart.findOneAndUpdate(
+          {
+            userId: userId,
+            "products.productId": productId,
+          },
+          { $inc: { "products.$.quantity": -1 } },
+          { new: true }
+        );
+        product[0].availability += 1;
+        product[0] = await product[0].save();
+        res.redirect("/user/cart");
+      } else {
+        product[0].availability += 1;
+        product[0] = await product[0].save();
+        cart[0].products.splice(productId, 1);
+        cart = await cart[0].save();
+        res.redirect("/user/cart");
+      }
+    } catch (err) {
+      console.log(err);
+      res.render("error/500");
     }
-
-    cart.products[productIndex].quantity = quantity;
-    await cart.save();
-    res.redirect("/user/cart");
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
+  } else {
+    res.status(400).send("Invalid action");
   }
 };

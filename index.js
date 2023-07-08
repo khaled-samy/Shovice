@@ -58,7 +58,7 @@ app.get("/", async (req, res) => {
       (a, b) => userProductCount[b] - userProductCount[a]
     );
 
-    const mostOrderedUsers = sortedUsers.slice(0, 3);
+    const mostOrderedUsers = sortedUsers.slice(0, 5);
 
     const topProducts = await Product.find({
       _id: { $in: mostOrderedProducts },
@@ -107,86 +107,113 @@ app.get("/", async (req, res) => {
       topProducts: topProducts,
     });
   } catch (err) {
-    res.json(err);
+    console.log(err);
+    res.render("error/500");
   }
 });
 
 app.get("/:templete", async (req, res) => {
   const { templete } = req.params;
-  if (templete !== "first") {
-    const products = (await Product.find().sort()).reverse();
-    if (req.cookies.jwt) {
-      const user = jwt.decode(req.cookies.jwt);
-      const loggedUser = await User.findOne({ username: user.username });
-      const carts = await Cart.find({ userId: loggedUser._id });
-      if (carts) {
-        res.render("product/category.ejs", {
-          user: loggedUser,
-          products: products,
-          cart: carts,
-          templete: templete,
-        });
-      } else {
-        res.render("product/category.ejs", {
-          user: loggedUser,
-          products: products,
-          cart: "",
-          templete: templete,
-        });
+  try {
+    if (templete === "secound" || templete === "third") {
+      const products = (await Product.find().sort()).reverse();
+      if (req.cookies.jwt) {
+        const user = jwt.decode(req.cookies.jwt);
+        const loggedUser = await User.findOne({ username: user.username });
+        const carts = await Cart.find({ userId: loggedUser._id });
+        if (carts) {
+          res.render("product/category.ejs", {
+            user: loggedUser,
+            products: products,
+            cart: carts,
+            templete: templete,
+          });
+        } else {
+          res.render("product/category.ejs", {
+            user: loggedUser,
+            products: products,
+            cart: "",
+            templete: templete,
+          });
+        }
       }
+      res.render("product/category.ejs", {
+        user: "",
+        cart: "",
+        templete: templete,
+        products: products,
+      });
+    } else if (templete === "first") {
+      res.redirect("/");
+    } else {
+      res.redirect("error/404");
     }
-    res.render("product/category.ejs", {
-      user: "",
-      cart: "",
-      templete: templete,
-      products: products,
-    });
-  } else {
-    res.redirect("/");
+  } catch (err) {
+    console.log(err);
+    res.render("error/500");
   }
 });
 
 app.post("/", async (req, res) => {
   const { category } = req.body;
-  if (category) {
-    const products = (
-      await Product.find({ category: category }).sort()
-    ).reverse();
-    if (req.cookies.jwt) {
-      const user = jwt.decode(req.cookies.jwt);
-      const loggedUser = await User.findOne({ username: user.username });
-      const carts = await Cart.find({ userId: loggedUser._id });
-      if (carts) {
-        res.render("index.ejs", {
-          category: true,
-          user: loggedUser,
-          products: products,
-          cart: carts,
-        });
-      } else {
-        res.render("index.ejs", {
-          category: true,
-          user: loggedUser,
-          products: products,
-          cart: "",
-        });
+  try {
+    if (category) {
+      const products = (
+        await Product.find({ category: category }).sort()
+      ).reverse();
+      if (req.cookies.jwt) {
+        const user = jwt.decode(req.cookies.jwt);
+        const loggedUser = await User.findOne({ username: user.username });
+        const carts = await Cart.find({ userId: loggedUser._id });
+        if (carts) {
+          res.render("index.ejs", {
+            category: true,
+            user: loggedUser,
+            products: products,
+            cart: carts,
+          });
+        } else {
+          res.render("index.ejs", {
+            category: true,
+            user: loggedUser,
+            products: products,
+            cart: "",
+          });
+        }
       }
+      res.render("index.ejs", { user: "", products: products, category: true });
+    } else {
+      res.redirect("/");
     }
-    res.render("index.ejs", { user: "", products: products, category: true });
-  } else {
-    res.redirect("/");
+  } catch (err) {
+    console.log(err);
+    res.render("error/500");
   }
 });
 
 app.get("/product/:id", async (req, res) => {
   const product = await Product.findById(req.params.id);
-  if (req.cookies.jwt) {
-    const user = jwt.decode(req.cookies.jwt);
-    const loggedUser = await User.findOne({ username: user.username });
-    if (product == null) res.redirect("/");
-    res.render("product/show", { user: loggedUser, product: product });
+  const products = await Product.find({ _id: { $ne: req.params.id } }).limit(4);
+  try {
+    if (req.cookies.jwt) {
+      const user = jwt.decode(req.cookies.jwt);
+      const loggedUser = await User.findOne({ username: user.username });
+      if (product == null) res.redirect("/");
+      res.render("product/show", {
+        user: loggedUser,
+        product: product,
+        products: products,
+      });
+    }
+    res.render("product/show", {
+      user: "",
+      product: product,
+      products: products,
+    });
+  } catch (err) {
+    console.log(err);
+    res.render("error/500");
   }
-  res.render("product/show", { user: "", product: product });
 });
 
 app.get("/product", checkAdmin, (req, res) => res.send("Your products!"));
@@ -195,6 +222,10 @@ app.use("/api", sessionExplorerRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
 app.use("/user", userRouter);
+
+app.use((req, res, next) => {
+  res.status(404).render("error/404.ejs"); // Assuming you have a '404.ejs' file for the 404 page
+});
 
 connectDB();
 

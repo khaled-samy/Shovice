@@ -6,6 +6,7 @@ exports.addProduct = async (req, res) => {
   try {
     newProduct = await newProduct.save();
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err);
+    res.render("error/500");
   }
 };

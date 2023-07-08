@@ -10,68 +10,64 @@ exports.addOrder = async (req, res) => {
     const loggedUser = await User.findOne({ username: user.username });
     const userId = loggedUser.id;
     const cart = await Cart.findOne({ userId: userId });
-    let products = [];
+    const products = cart.products.map((product) => ({
+      productId: product.productId,
+      quantity: product.quantity,
+    }));
 
-    if (cart.products.length > 0) {
-      products = cart.products;
+    if (products.length > 0) {
+      // let products = [];
 
-      for (let i = 0; i < products.length; i++) {
-        const product = products[i];
-        const { productId, quantity } = product;
+      // if (cart.products.length > 0) {
+      //   products = cart.products;
 
-        const existingOrder = await Order.findOne({ userId: userId });
-        console.log(2222, existingOrder);
+      //   for (let i = 0; i < products.length; i++) {
+      //     const product = products[i];
+      //     const { productId, quantity } = product;
 
-        if (existingOrder) {
-          const updatedProducts = [...existingOrder.products];
-          const existingProductIndex = updatedProducts.findIndex(
-            (product) => product.productId === productId
-          );
+      // if (existingOrder) {
+      //   const updatedProducts = [...existingOrder.products];
+      //   const existingProductIndex = updatedProducts.findIndex(
+      //     (product) => product.productId === productId
+      //   );
 
-          if (existingProductIndex !== -1) {
-            updatedProducts[existingProductIndex].quantity += quantity;
-          } else {
-            updatedProducts.push({
-              productId: productId,
-              quantity: quantity,
-            });
-          }
+      //   if (existingProductIndex !== -1) {
+      //     updatedProducts[existingProductIndex].quantity += quantity;
+      //   } else {
+      //     updatedProducts.push({
+      //       productId: productId,
+      //       quantity: quantity,
+      //     });
+      //   }
 
-          existingOrder.products = updatedProducts;
-          existingOrder.info = [
-            {
-              name: name,
-              city: city,
-            },
-          ];
+      //   existingOrder.products = updatedProducts;
+      //   existingOrder.info = [
+      //     {
+      //       name: name,
+      //       city: city,
+      //     },
+      //   ];
 
-          await existingOrder.save();
-        } else {
-          const order = new Order({
-            userId: userId,
-            products: [
-              {
-                productId: productId,
-                quantity: quantity,
-              },
-            ],
-            info: [
-              {
-                name: name,
-                city: city,
-              },
-            ],
-          });
+      //   await existingOrder.save();
+      // } else {
+      const order = new Order({
+        userId: userId,
+        products: products,
+        name: name,
+        city: city,
+      });
 
-          await order.save();
-        }
-      }
+      await order.save();
 
-      cart.products = [];
-      await cart.save();
-      res.redirect("/user/cart");
+      // }
     }
+
+    cart.products = [];
+    await cart.save();
+    res.redirect("/user/cart");
+    // }
   } catch (err) {
     console.log(err);
+    res.render("error/500");
   }
 };

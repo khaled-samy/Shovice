@@ -8,13 +8,14 @@ exports.register = async (req, res, next) => {
 
   const oldUser = await authService.getUserByUsername(username);
 
-  console.log({ oldUser });
   if (oldUser) {
-    return res.status(409).send("user already exists");
+    const message = "user already exists";
+    res.render("auth/register.ejs", { message: message });
   }
 
   if (password.length < 6) {
-    return res.status(400).json({ message: "password less than 6 characters" });
+    const message = "password less than 6 characters";
+    res.render("auth/register.ejs", { message: message });
   }
 
   try {
@@ -31,9 +32,7 @@ exports.register = async (req, res, next) => {
 
     return res.redirect("/");
   } catch (err) {
-    return res.status(401).json({
-      message: "User not created",
-      error: err.message,
-    });
+    console.log(err);
+    res.render("error/500");
   }
 };

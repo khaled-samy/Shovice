@@ -4,7 +4,6 @@ require("dotenv").config();
 const utils = require("./utils/token");
 
 exports.getUserByUsername = async (username) => {
-  console.log("inside authService");
   return await User.findOne({ username });
 };
 
@@ -22,7 +21,6 @@ exports.registerUser = async (username, password, email) => {
 
   const maxAge = 2 * 60 * 60;
   const token = utils.getToken(username, maxAge);
-  console.log({ token });
 
   const newUser = await User.create({
     username: username,
@@ -31,14 +29,14 @@ exports.registerUser = async (username, password, email) => {
     token: token,
   });
 
-  console.log("making USER after token b4 cookie----");
-  console.log({ newUser });
-
   return { newUser, token, maxAge };
 };
 
 exports.loginUser = async (username, password) => {
   const user = await User.findOne({ username });
+  if (!user) {
+    return { user: null, validPassword: false, token: null, maxAge: null };
+  }
   const validPassword = await bcrypt.compare(password, user.password);
   const maxAge = 2 * 60 * 60;
   const token = utils.getToken(username, maxAge);
@@ -46,8 +44,6 @@ exports.loginUser = async (username, password) => {
   user.token = token;
 
   await user.save();
-
-  console.log({ token });
 
   return { user, validPassword, token, maxAge };
 };

@@ -29,7 +29,8 @@ exports.deleteCart = async (req, res) => {
         res.redirect("/user/cart");
       }
     }
-  } catch (error) {
-    res.status(500).send(error.message);
+  } catch (err) {
+    console.log(err);
+    res.render("error/500");
   }
 };

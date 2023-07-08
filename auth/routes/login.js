@@ -13,17 +13,9 @@ exports.login = async (req, res, next) => {
       username,
       password
     );
-    if (!user) {
-      return res.status(401).json({
-        message: "Login not successful",
-        error: "User not found",
-      });
-    }
-    if (!validPassword) {
-      return res.status(401).json({
-        message: "Login not successful",
-        error: "Password is incorrect",
-      });
+    if (!user || !validPassword) {
+      const message = "Invalid username or password";
+      res.render("auth/login.ejs", { message: message });
     }
     res.cookie("jwt", token, {
       httpOnly: true,
@@ -32,9 +24,7 @@ exports.login = async (req, res, next) => {
 
     return res.redirect("/");
   } catch (err) {
-    res.status(401).json({
-      message: "Login not successful",
-      error: err.message,
-    });
+    console.log(err);
+    res.render("error/500");
   }
 };

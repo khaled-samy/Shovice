@@ -2,8 +2,6 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const checkCookie = (req) => {
-  console.log("inside checkCookie");
-  console.log("all our cookies are: ", req.cookies);
   return req.cookies["jwt"];
 };
 

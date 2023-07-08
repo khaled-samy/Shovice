@@ -11,6 +11,7 @@ exports.editProduct = async (req, res) => {
       { new: true }
     );
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err);
+    res.render("error/500");
   }
 };

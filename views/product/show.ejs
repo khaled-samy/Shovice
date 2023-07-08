@@ -28,7 +28,7 @@
       <div class="header-container" style="display: flex; padding: 0 150px">
         <div class="header-img">
           <a href="/"
-            ><img src="/img/1.png" alt="" width="150px" height="80px"
+            ><img src="/favicon.ico" alt="" width="150px" height="80px"
           /></a>
         </div>
         <div class="header-search">
@@ -122,80 +122,318 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-6">
-          <img class="i" src="/img/<%= product.category %>.png" alt="" />
+      <div class="product-container">
+        <div class="product-img-box">
+          <img src="/img/<%= product.category %>.png"/>
         </div>
-        <div class="col-6 j">
-          <div class="j1">
-            <h3 class="j2" style="font-weight: 600"><%= product.name %></h3>
-            <div class="j4">
-              <h2><%= product.desc %></h2>
+
+        <div class="product-details-box">
+          <div class="product-rating" style="display: flex; padding-top: 50px; margin-bottom: -30px;">
+            <i class="fa-solid fa-star rate-btn"></i>
+            <i class="fa-solid fa-star rate-btn"></i>
+            <i class="fa-solid fa-star rate-btn"></i>
+            <i class="fa-solid fa-star rate-btn"></i>
+            <i class="fa-solid fa-star rate-btn"></i>
+            <p style="padding: 0 10px;">Write a review | Ask a quastion</p>
+          </div>
+          <h1 style="font-weight: 600;">
+            <%= product.name %>
+          </h1>
+          <h3 style="font-weight: 600;">$ <%= product.price %>.99
+          </h3>
+          <p style="font-weight: 600;">
+            <%= product.desc %>
+          </p>
+          <p style="font-weight: 600; color: red;">
+            <%= product.brand %>
+          </p>
+          <hr>
+          <div>
+            <p style="font-weight: 600; color: darkgray;">Size</p>
+            <div style="display: flex;">
+  
+              <div class="redio-btn" style="display: flex; padding-right: 20px;">
+                <input type="radio" id="small" name="small" value="small">
+                <label for="small">Small</label>
+              </div>
+              <div class="redio-btn" style="display: flex; padding-right: 20px;">
+                <input type="radio" id="medium" name="medium" value="medium">
+                <label for="medium">Medium</label>
+              </div>
+              <div class="redio-btn" style="display: flex; padding-right: 20px;">
+                <input type="radio" id="large" name="large" value="large">
+                <label for="large">Large</label>
+              </div>
             </div>
-            <div>
-              <h5 class="j3">$<%= product.price %></h5>
-              <h5><%= product.category %></h5>
+          </div>
+          <div style="padding-top: 40px;">
+            <p style="font-weight: 600; color: darkgray;">Color</p>
+            <div style="display: flex;">
+              <div class="redio-btn" style="display: flex; padding-right: 20px;">
+                <input type="radio" id="red" name="red" value="red">
+                <div style="width: 15px; height: 15px; margin: 3px 5px; background-color: red;"></div>
+                <label for="red">Red</label>
+              </div>
+              <div class="redio-btn" style="display: flex; padding-right: 20px;">
+                <input type="radio" id="black" name="black" value="black">
+                <div style="width: 15px; height: 15px; margin: 3px 5px; background-color: black;"></div>
+                <label for="black">Black</label>
+              </div>
+              <div class="redio-btn" style="display: flex; padding-right: 20px;">
+                <input type="radio" id="blue" name="blue" value="blue">
+                <div style="width: 15px; height: 15px; margin: 3px 5px; background-color: blue;"></div>
+                <label for="blue">Blue</label>
+              </div>
+              <div class="redio-btn" style="display: flex; padding-right: 20px;">
+                <input type="radio" id="green" name="green" value="green">
+                <div style="width: 15px; height: 15px; margin: 3px 5px; background-color: green;"></div>
+                <label for="green">Green</label>
+              </div>
             </div>
           </div>
 
           <% if(user && user.isAdmin) { %>
+              <p style="font-weight: 600; color: darkgray; padding-top: 20px;">Availability: <span style="color: black;"><%= product.availability %></span></p>
           <div
             style="
               display: flex;
               justify-content: space-around;
               align-items: center;
-              padding: 20px;
-              margin: 20px;
+              margin-top: 30px;
             "
           >
-            <button
-              type="button"
-              style="
-                background-color: red;
-                color: rgb(255, 255, 255);
-                width: 40%;
-                padding: 5px 0;
-              "
+            <a
+              href="/api/admin/product/<%= product.id %>"
+              class="btn div-btn2"
+              style="width: 40%"
             >
-              <img class="k1" src="img/6.png" alt="" />
-              Delete
-            </button>
-
-            <button
-              type="button"
-              style="
-                background-color: #4e989a;
-                color: rgb(255, 255, 255);
-                width: 40%;
-                padding: 5px 0;
-              "
-            >
-              <img class="k1" src="img/5.png" alt="" />
               Edit
-            </button>
+            </a>
 
             <button
-              class="delete"
+              class="btn div-btn2"
+              style="background-color: red; width: 40%"
               data-target="/api/admin/product/<%= product.id %>"
               data-method="DELETE"
               data-disabled="true"
             >
-              Delete Article
+              Delete
             </button>
           </div>
           <% } else { %>
-          <form
-            action="/user/cart/add/<%= product.id %>?_method=POST"
-            method="POST"
-          >
-            <button type="submit" class="btn k">
-              <img class="k1" src="/img/8.png" alt="" />
-              Add to cart
-            </button>
-          </form>
+            <% if(product.availability) { %>
+              <form
+              action="/user/cart/add/<%= product.id %>?_method=POST"
+              method="POST"
+            >
+              <button type="submit" class="btn div-btn2" style="margin-top: 40px; margin-left: 70px;">
+                <i class="fa-sharp fa-solid fa-cart-plus"></i>
+                Add to cart
+              </button>
+            </form>
+              <% } else { %>
+                <p style="
+                font-weight: 600;
+                color: #ff0000; 
+                font-size: 20px;
+                padding-top: 40px;
+                ">Not Available</p>
+                <% } %>
+
           <% } %>
+        </div>
+        </div>
+
+        <div class="products-container">
+          <div style="display: flex;">
+            <hr width="5%">
+            <span style="padding: 10px 40px 0 40px; font-weight: 600;">Other Products</span>
+            <hr style="width: 75%;">
+          </div>
+
+          <div class="products-row">
+            <% products.forEach(product=> { %>
+              <div class="other-products-box">
+                <div>
+                  <img width="240px" height="260px" src="/img/<%= product.category %>.png"/>
+                </div>
+                <div style="padding-top: 10px;">
+                  <p style="color: darkgrey;">Brand: <span style="color: red; font-weight: 600; margin-top: 10px;"><%= product.brand %></span></p>
+                  <div style="margin-bottom: 20px">
+                    <a href="/product/<%= product.id %>" style="text-decoration: none; font-size: 25px; font-weight: 600;"><%= product.name %></a>
+                  </div>
+                  <h5 style="color: darkgrey;">Category: <span style="color: rgb(0, 0, 0); font-weight: 600;"><%= product.category %></span></h5>
+                  <h5 style="color: darkgrey;">Price: <span style="color: rgb(0, 0, 0); font-weight: 600;">$<%= product.price %></span></h5>
+                </div>
+              </div>
+              <% }) %>
+          </div>
         </div>
       </div>
     </section>
+
+    <footer>
+      <div class="container-fluid cont_footer">
+        <img
+          src="/img/1.png"
+          alt=""
+          width="137px"
+          height="69px"
+          class="img_footer"
+        />
+        <div class="row footer">
+          <div class="col-2">
+            <h6 class="footer1">
+              <b>Company Info</b>
+            </h6>
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">About Us</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Carrier</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >We are hiring</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Blog</a></small
+              ></small
+            >
+          </div>
+          <div class="col-2">
+            <h6 class="footer1">
+              <b>Legal</b>
+            </h6>
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">About Us</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Carrier</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >We are hiring</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Blog</a></small
+              ></small
+            >
+          </div>
+          <div class="col-2">
+            <h6 class="footer1">
+              <b>Features</b>
+            </h6>
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >Busines Marketing</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >User Analytic</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Live Chat</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >Unlimited Support</a
+                ></small
+              ></small
+            >
+          </div>
+          <div class="col-2">
+            <h6 class="footer1">
+              <b>Resources</b>
+            </h6>
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >IOS & Android</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#"
+                  >Watch a Demo</a
+                ></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">Customers</a></small
+              ></small
+            >
+            <small
+              ><small
+                ><a class="nav-link text-black-50" href="#">API</a></small
+              ></small
+            >
+          </div>
+          <div class="col-4">
+            <h6 class="footer_1">
+              <b>Get In Touch</b>
+            </h6>
+            <small>
+              <small>
+                <img src="/img/9.png" alt="" class="footer2" />
+                <a class="nav-link text-black-50" href="#">(480) 555-0103</a>
+              </small>
+            </small>
+            <small>
+              <small>
+                <img src="/img/10.png" alt="" class="footer_2" />
+                <a class="nav-link text-black-50" href="#"
+                  >4517 Washington Ave. Manchester, <br />
+                  Kentucky 39495
+                </a>
+              </small>
+            </small>
+            <small>
+              <small>
+                <img src="/img/11.png" alt="" class="footer2" />
+                <a class="nav-link text-black-50" href="#"
+                  >debra.holt@example.com</a
+                >
+              </small>
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="footer3">
+        <b class="footer_3"> Made With Love By Figmaland All Right Reserved </b>
+        <div class="footer4">
+          <a href="#"><img src="/img/12.png" alt="" class="footer_4" /></a>
+          <a href="#"><img src="/img/13.png" alt="" class="footer_4" /></a>
+          <a href="#"><img src="/img/14.png" alt="" class="footer_4" /></a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

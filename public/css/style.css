@@ -263,6 +263,7 @@
 .cont_footer {
   background-color: #e6e6e6;
 }
+
 .img_footer {
   margin-left: 90px;
 }
@@ -381,8 +382,95 @@
   height: 40px;
 }
 
+.div-btn2 {
+  background-color: #4e989a;
+  color: white;
+  width: 250px;
+  height: 40px;
+}
+
+.status-btn {
+  background-color: #4e989a;
+  color: white;
+  padding: 10px;
+}
+
+.status-select {
+  padding: 10px;
+}
+
+.status-select:hover {
+  background-color: #4e989a;
+  color: white;
+}
+
 .action-btns a:hover {
   color: #036beb;
+}
+
+.product-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 0;
+}
+
+.products-container {
+  padding: 50px 150px;
+}
+
+.producs-box-img {
+  transition: transform 0.2s;
+}
+
+.producs-box-img:hover {
+  transform: scale(1.1);
+}
+
+.product-img-box {
+  width: 40%;
+  height: 600px;
+}
+
+.product-img-box img {
+  width: 100%;
+  height: 100%;
+}
+
+.product-details-box {
+  width: 40%;
+}
+
+.product-box-details {
+  height: 5em;
+  overflow: hidden;
+}
+
+.product-details-box h1::first-letter {
+  text-transform: capitalize;
+}
+
+.products-row {
+  display: flex;
+  padding: 20px;
+}
+
+.other-products-box {
+  width: 25%;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.other-products-box img {
+  padding: 20px;
+  background-color: rgb(247, 245, 245);
+}
+
+.rate-btn {
+  padding-right: 3px;
+  padding-top: 3px;
+  font-size: 17px;
+  cursor: pointer;
+  color: rgb(255, 208, 0);
 }
 
 .product-edit {
@@ -508,11 +596,52 @@
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
+  padding: 20px;
+  text-align: start;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: #474e5d;
   padding-top: 50px;
+}
+
+.buy-btn {
+  background-color: #51ff00;
+  font-family: "Brush Script MT", cursive;
+  font-size: 25px;
+  font-weight: 600;
+  border: none;
+}
+
+.buy-btn:hover {
+  background-color: #44d800;
+}
+
+.update-quantity-btn {
+  width: 30px;
+  background-color: white;
+  border: 1px solid;
+}
+
+.update-quantity-btn:hover {
+  background-color: #419a9e;
+  color: white;
+}
+
+.delete-cart-btn {
+  background-color: transparent;
+  margin: 25px 0 0 30px;
+  padding: 10px;
+  font-size: 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-cart-btn:hover {
+  background-color: red;
+  color: white;
 }
 
 /* Modal Content/Box */
@@ -566,6 +695,18 @@ hr {
   border: 1px solid black;
 
   border-collapse: collapse;
+}
+
+.orders-table,
+.orders-table th,
+.orders-table td {
+  border: unset;
+  border-collapse: unset;
+}
+
+.orders-table th {
+  background-color: rgb(245, 245, 245) !important;
+  color: #000000 !important;
 }
 
 .admin-table th,
@@ -649,6 +790,20 @@ hr {
   cursor: pointer;
 }
 
+.col-md-6 {
+  width: 70%;
+}
+
+.select-ele {
+  padding: 8px;
+  margin-left: 20px;
+}
+
+.select-ele:hover {
+  background-color: #4e989a;
+  color: white;
+}
+
 .change:link,
 .change:visited {
   background-color: white;
@@ -716,25 +871,31 @@ hr {
 
 /* The Close Button */
 .close {
-  color: #868282;
-  float: right;
-  font-size: 28px;
+  color: #000;
+  background-color: white;
+  font-size: 20px;
+  margin-top: 5px;
   font-weight: bold;
+  border: none;
 }
 
 .close:hover,
 .close:focus {
-  color: #000;
+  background-color: #da1515;
+  color: white;
   text-decoration: none;
   cursor: pointer;
 }
 
 .modal-header {
-  background-color: #f8f9fa; /* Light gray background */
-  border-bottom: none; /* Remove the bottom border */
+  width: 100%;
+  height: 40px;
+  border: none;
 }
 
 .modal-title {
+  margin-bottom: 15px;
+  font-weight: 600;
   color: #333; /* Customize the modal title color */
 }
 
@@ -759,6 +920,12 @@ hr {
   display: flex;
   padding: 30px;
   margin: 0 8rem 2rem 8rem;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+}
+
+.user-order {
+  padding: 30px;
   box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
 }

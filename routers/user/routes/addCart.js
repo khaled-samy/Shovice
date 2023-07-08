@@ -23,7 +23,7 @@ exports.addCart = async (req, res) => {
           myProduct.availability -= 1;
           myProduct = await myProduct.save();
           cart = await cart.save();
-          res.redirect("/");
+          res.redirect("../");
         } else {
           cart.products.push({ productId: productId, quantity: quantity });
           myProduct.availability -= 1;
@@ -52,5 +52,6 @@ exports.addCart = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
+    res.render("error/500");
   }
 };
