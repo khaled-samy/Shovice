@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const { getProducts } = require("./routes/getProducts");
 const { addProduct } = require("./routes/addProduct");
 const { editProduct } = require("./routes/editProduct");
 const { deleteProduct } = require("./routes/deleteProduct");
 const { getUsersOrder } = require("./routes/getUsersOrder");
 const { getUserOrder } = require("./routes/getUserOrder");
 const { updateOrderStatus } = require("./routes/updateOrderStatus");
+const { adminIndex } = require("./routes/adminIndex");
 
 const Product = require("../../models/product");
 
@@ -14,6 +16,9 @@ const checkAdmin = require("../../middlewere/checkAdmin");
 
 router.use(verifyAccessToken);
 router.use(checkAdmin);
+
+router.get("/", adminIndex);
+router.get("/products", getProducts);
 
 router
   .route("/product")

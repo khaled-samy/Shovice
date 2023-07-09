@@ -40,10 +40,11 @@ exports.loginUser = async (username, password) => {
   const validPassword = await bcrypt.compare(password, user.password);
   const maxAge = 2 * 60 * 60;
   const token = utils.getToken(username, maxAge);
+  const { isAdmin } = user;
 
   user.token = token;
 
   await user.save();
 
-  return { user, validPassword, token, maxAge };
+  return { user, validPassword, token, maxAge, isAdmin };
 };
