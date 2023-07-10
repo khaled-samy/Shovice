@@ -30,6 +30,25 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <style>
+    :root {
+      --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      --msger-bg: #fff;
+      --border: 2px solid #ddd;
+      --left-msg-bg: #ececec;
+      --right-msg-bg: #419a9e;
+    }
+
+    html {
+      box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+      margin: 0;
+      padding: 0;
+      box-sizing: inherit;
+    }
     body {
       margin: 0;
       padding: 0;
@@ -102,63 +121,62 @@
         </ul>
       </aside>
 
-      <main class="main-container">
-        <section>
-          <div class="w3-container w3-padding welcome-container" style="background-color: #4e989a;" id="myHeader">
-            <div class="w3-center" style="padding: 20px;">
-              <h1 class="w3-xxxlarge w3-animate-bottom" style="color: white;">Welcome to Shovice</h1>
-            <h4 style="padding-top: 15px; color: white;">Ecommerce website that allows users to buy Electronic products online</h4>
-              <div class="w3-padding-32">
-                  <a href="/api/admin">
-                    <button type="button" class="btn btn-outline-light" style="padding: 10px 40px">
-                      Dashboard
-                    </button>
-                  </a>
+      <main
+        class="main-container"
+        style="display: flex; justify-content: center"
+      >
+        <section class="msger">
+          <header class="msger-header">
+            <div class="msger-header-title">
+              <i class="fas fa-comment-alt"></i> AdminChat
+            </div>
+            <div class="msger-header-options">
+              <span><i class="fas fa-cog"></i></span>
+            </div>
+          </header>
+
+          <main class="msger-chat" style="">
+            <% messages.forEach(message => { %>
+            <div class="msg right-msg" style="justify-content: center">
+              <div class="msg-bubble" style="width: 100%">
+                <div class="msg-info">
+                  <div class="msg-info-name"><%= message.title %></div>
+                  <div class="msg-info-time"><%= message.timeSince %></div>
+                </div>
+
+                <div class="msg-text"><%= message.details %></div>
               </div>
             </div>
-          </div>
-          <div class="container">
-            <div class="row">
-              <div class="d">
-                <h1>Users Orders</h1>
-                <svg
-                  width="680"
-                  height="1"
-                  viewBox="0 0 680 1"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line y1="0.5" x2="680" y2="0.5" stroke="black" />
-                </svg>
-              </div>
-            </div>
-          </div>
-    
-          <div class="container">
-            <div class="row">
-    
-              <table class="admin-table" style="width: 100%">
-                <tr>
-                  <th style="width: 25%">Order</th>
-                  <th style="width: 25%">Date</th>
-                  <th style="width: 25%">Status</th>
-                  <th style="width: 25%">Total</th>
-                </tr>
-                <% orders.forEach(order=> { %>
-                <tr>
-                  <td>
-                    <a style="text-decoration: none; color: red" href="user-order/<%= order._id %>"
-                      ><strong><%= order.username %></strong></a
-                    >
-                  </td>
-                  <td><strong><%= order.date %></strong></td>
-                  <td><strong><%= order.status %></strong></td>
-                  <td><strong><%= order.totalPrice %></strong></td>
-                </tr>
-                <% }) %>
-              </table>
+            <% }); %>
+          </main>
+
+          <form
+            action="/api/admin/message"
+            method="POST"
+            class="msger-inputarea"
+            style="display: grid"
+          >
+            <input
+              type="text"
+              class="msger-input"
+              required
+              name="title"
+              id="title"
+              style="margin-bottom: 10px"
+              placeholder="Enter your title..."
+            />
+            <textarea
+              class="msger-input"
+              required
+              name="details"
+              id="details"
+              style="margin-bottom: 10px"
+              placeholder="Enter your message..."
+            ></textarea>
+            <button type="submit" class="msger-send-btn">Send</button>
+          </form>
+        </section>
       </main>
     </div>
   </body>
 </html>
-

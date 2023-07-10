@@ -9,6 +9,7 @@ const User = require("./models/user");
 const Product = require("./models/product");
 const Cart = require("./models/cart");
 const Order = require("./models/order");
+const Message = require("./models/message");
 
 const connectDB = require("./db");
 const express = require("express");
@@ -75,6 +76,7 @@ app.get("/", async (req, res) => {
     if (req.cookies.jwt) {
       const user = jwt.decode(req.cookies.jwt);
       const loggedUser = await User.findOne({ username: user.username });
+      const messages = await Message.find();
       const carts = await Cart.find({ userId: loggedUser._id });
       if (carts) {
         res.render("index.ejs", {
@@ -85,6 +87,7 @@ app.get("/", async (req, res) => {
           newProducts: newProducts,
           topProducts: topProducts,
           cart: carts,
+          messages: messages,
         });
       } else {
         res.render("index.ejs", {
@@ -95,6 +98,7 @@ app.get("/", async (req, res) => {
           newProducts: newProducts,
           topProducts: topProducts,
           cart: "",
+          messages: messages,
         });
       }
     }
@@ -105,6 +109,7 @@ app.get("/", async (req, res) => {
       products: products,
       newProducts: newProducts,
       topProducts: topProducts,
+      messages: "",
     });
   } catch (err) {
     console.log(err);

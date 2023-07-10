@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Message = require("../../models/message");
 const { getProducts } = require("./routes/getProducts");
 const { addProduct } = require("./routes/addProduct");
 const { editProduct } = require("./routes/editProduct");
@@ -8,6 +9,7 @@ const { getUsersOrder } = require("./routes/getUsersOrder");
 const { getUserOrder } = require("./routes/getUserOrder");
 const { updateOrderStatus } = require("./routes/updateOrderStatus");
 const { adminIndex } = require("./routes/adminIndex");
+const { addMessage } = require("./routes/addMessage");
 
 const Product = require("../../models/product");
 
@@ -19,6 +21,14 @@ router.use(checkAdmin);
 
 router.get("/", adminIndex);
 router.get("/products", getProducts);
+
+router
+  .route("/message")
+  .get(async (req, res) => {
+    const messages = await Message.find({});
+    res.render("admin/message", { messages: messages });
+  })
+  .post(addMessage);
 
 router
   .route("/product")

@@ -75,7 +75,7 @@
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="#">
+            <a href="/api/admin/message">
               <span class="material-icons-outlined">message</span> Messages
             </a>
           </li>
@@ -132,7 +132,7 @@
 
         <div class="charts">
           <div class="charts-card">
-            <p class="chart-title">Top 5 Products</p>
+            <p class="chart-title">Products Categories</p>
             <div id="bar-chart"></div>
           </div>
 
@@ -145,10 +145,6 @@
     </div>
 
     <script>
-      const users = <%- JSON.stringify(users) %>
-      const products = <%- JSON.stringify(products) %>
-      const carts = <%- JSON.stringify(carts) %>
-      const orders = <%- JSON.stringify(orders) %>
       const laptops = <%- JSON.stringify(laptops) %>
       const phones = <%- JSON.stringify(phones) %>
       const screens = <%- JSON.stringify(screens) %>
