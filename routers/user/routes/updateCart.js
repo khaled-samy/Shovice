@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../../../models/user");
-const Cart = require("../../../models/cart");
-const Product = require("../../../models/product");
+const { User, Product, Cart } = require("../../../models");
 
 exports.updateCart = async (req, res) => {
   const user = jwt.decode(req.cookies.jwt);

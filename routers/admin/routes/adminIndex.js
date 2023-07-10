@@ -1,7 +1,4 @@
-const User = require("../../../models/user");
-const Cart = require("../../../models/cart");
-const Product = require("../../../models/product");
-const Order = require("../../../models/order");
+const { User, Product, Cart, Order } = require("../../../models");
 
 exports.adminIndex = async (req, res) => {
   const users = await User.find({});
@@ -9,18 +6,43 @@ exports.adminIndex = async (req, res) => {
   const products = await Product.find({});
   const orders = await Order.find({});
 
-  const laptops = await Product.find({ category: "laptop" });
-  const phones = await Product.find({ category: "phone" });
-  const screens = await Product.find({ category: "screen" });
+  let categoryCounts = {
+    laptop: 0,
+    phone: 0,
+    screen: 0,
+  };
+
+  for (let i = 0; i < orders.length; i++) {
+    const order = orders[i];
+    const orderProducts = order.products;
+
+    for (let j = 0; j < orderProducts.length; j++) {
+      const productId = orderProducts[j].productId;
+      const product = await Product.findById(productId);
+
+      if (product) {
+        const category = product.category;
+
+        if (category === "laptop") {
+          categoryCounts.laptop += 1;
+        } else if (category === "phone") {
+          categoryCounts.phone += 1;
+        } else if (category === "screen") {
+          categoryCounts.screen += 1;
+        }
+      }
+    }
+  }
+
   try {
     res.render("admin", {
       users: users.length,
       carts: carts.length,
       products: products.length,
       orders: orders.length,
-      laptops: laptops.length,
-      phones: phones.length,
-      screens: screens.length,
+      laptops: categoryCounts.laptop,
+      phones: categoryCounts.phone,
+      screens: categoryCounts.screen,
     });
   } catch (err) {
     console.log(err);

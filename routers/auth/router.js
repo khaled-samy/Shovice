@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { login } = require("./routes/login");
 const { register } = require("./routes/register");
-const User = require("../models/user");
+const User = require("../../models/user");
 
 router.route("/register").post(register);
 router

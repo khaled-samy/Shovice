@@ -1,8 +1,6 @@
-const User = require("../../../models/user");
-const Cart = require("../../../models/cart");
-const Product = require("../../../models/product");
 const jwt = require("jsonwebtoken");
 const countryOptions = require("../../../services/utils/getCountryOptions");
+const { User, Product, Cart } = require("../../../models");
 
 exports.getCart = async (req, res) => {
   try {
@@ -18,7 +16,7 @@ exports.getCart = async (req, res) => {
         cartProductIds.includes(product._id.toString())
       );
 
-      res.render("cart/cart.ejs", {
+      res.render("user/cart.ejs", {
         products: cartProducts,
         carts: carts,
         user: user,
@@ -37,7 +35,7 @@ exports.getCart = async (req, res) => {
 
       newCart = await newCart.save();
 
-      res.render("cart/cart.ejs", {
+      res.render("user/cart.ejs", {
         products: "",
         carts: {
           products: [],

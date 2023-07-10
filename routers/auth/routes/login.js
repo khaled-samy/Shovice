@@ -1,4 +1,4 @@
-const authService = require("../../services/authService");
+const authService = require("../../../services/authService");
 
 exports.login = async (req, res, next) => {
   const { username, password } = req.body;
@@ -17,7 +17,7 @@ exports.login = async (req, res, next) => {
     }
     res.cookie("jwt", token, {
       httpOnly: true,
-      maxAge: maxAge * 1000, //convert 2h to ms; maxAge uses miliseconds
+      maxAge: maxAge * 1000,
     });
 
     if (isAdmin) {

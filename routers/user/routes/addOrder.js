@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../../../models/user");
-const Cart = require("../../../models/cart");
-const Order = require("../../../models/order");
+const { User, Cart, Order } = require("../../../models");
 
 exports.addOrder = async (req, res) => {
   try {
@@ -16,40 +14,6 @@ exports.addOrder = async (req, res) => {
     }));
 
     if (products.length > 0) {
-      // let products = [];
-
-      // if (cart.products.length > 0) {
-      //   products = cart.products;
-
-      //   for (let i = 0; i < products.length; i++) {
-      //     const product = products[i];
-      //     const { productId, quantity } = product;
-
-      // if (existingOrder) {
-      //   const updatedProducts = [...existingOrder.products];
-      //   const existingProductIndex = updatedProducts.findIndex(
-      //     (product) => product.productId === productId
-      //   );
-
-      //   if (existingProductIndex !== -1) {
-      //     updatedProducts[existingProductIndex].quantity += quantity;
-      //   } else {
-      //     updatedProducts.push({
-      //       productId: productId,
-      //       quantity: quantity,
-      //     });
-      //   }
-
-      //   existingOrder.products = updatedProducts;
-      //   existingOrder.info = [
-      //     {
-      //       name: name,
-      //       city: city,
-      //     },
-      //   ];
-
-      //   await existingOrder.save();
-      // } else {
       const order = new Order({
         userId: userId,
         products: products,
@@ -58,14 +22,11 @@ exports.addOrder = async (req, res) => {
       });
 
       await order.save();
-
-      // }
     }
 
     cart.products = [];
     await cart.save();
     res.redirect("/user/cart");
-    // }
   } catch (err) {
     console.log(err);
     res.render("error/500");

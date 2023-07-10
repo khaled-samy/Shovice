@@ -38,10 +38,10 @@ var barChartOptions = {
     },
   },
   dataLabels: {
-    enabled: false,
+    enabled: true,
   },
   legend: {
-    show: false,
+    show: true,
   },
   xaxis: {
     categories: ["Laptop", "Phone", "Screen"],
