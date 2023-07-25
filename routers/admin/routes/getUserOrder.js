@@ -1,6 +1,4 @@
-const Order = require("../../../models/order");
-const User = require("../../../models/user");
-const Product = require("../../../models/product");
+const { User, Product, Order } = require("../../../models");
 
 exports.getUserOrder = async (req, res) => {
   try {
@@ -21,7 +19,7 @@ exports.getUserOrder = async (req, res) => {
       orderProducts.push(product);
     }
 
-    res.render("admin/userOrder.ejs", {
+    res.render("admin/order/userOrder.ejs", {
       name,
       orderId: _id,
       timeSince,

@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../../../models/user");
-const Cart = require("../../../models/cart");
-const Product = require("../../../models/product");
+const { User, Product, Cart } = require("../../../models");
 
 exports.addCart = async (req, res) => {
   try {

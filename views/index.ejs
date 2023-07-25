@@ -23,47 +23,45 @@
               /></a>
         </div>
         <div class="header-search">
-          <form action="">
+          <form action="" class="searchForm">
             <input class="search-bar" type="text" placeholder="Search for products..." name="search">
             <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div>
         <% if(user) { %>
         <div class="header-items" style="display: flex;">
-          <% if(!user.isAdmin) { %>
-            <a href="/user/cart" class="cart-btn"
-              ><i class="fa-solid fa-cart-shopping"></i>
-              <% if(cart[0] && cart[0].products.length) { %>
-                <p style="
-                 background-color: red;
-                 color: white;
-                 border-radius: 50%;
-                 font-size: 4px; 
-                 width: 12px;
-                 height: 14px;
-                 margin-left: -6px;
-                 text-align: center;
-                  "><%= cart[0].products.length %></p>
-                <% } %>
+          <a href="/user/message" class="cart-btn" style="margin: 15px 10px; padding: 0 7px;"
+              ><i class="fa-solid fa-envelope"></i>
           </a>
-          
-          <% } else { %>
-            <a href="/api/admin/product" class="cart-btn"
-              ><i class="fa-solid fa-circle-plus"></i>
-          </a>
+          <a href="/user/cart" class="cart-btn" style="padding: 0 7px;"
+          ><i class="fa-solid fa-cart-shopping"></i>
+          <% if(cart[0] && cart[0].products.length) { %>
+            <p style="
+             background-color: red;
+             color: white;
+             border-radius: 50%;
+             font-size: 4px; 
+             width: 12px;
+             height: 14px;
+             margin-left: -6px;
+             text-align: center;
+              "><%= cart[0].products.length %></p>
             <% } %>
+      </a>
           <a class="nav-link b" href="/">Home</a>
           <a class="nav-link b" href="/api/auth/logout">Logout</a>
         </div>
-
-          <p style="margin: 15px 0 0 20px; color: red;">Welcome <br><strong style="color: black;"><%= user.username %></strong></p>
+          <p style="margin: 15px 0 10px 30px; color: red;">Welcome <br><strong style="color: black;"><%= user.username %></strong></p>
           <% } else { %>
             <div class="header-items" style="display: flex;">
+              <a href="/user/message" class="cart-btn" style="margin: 15px 10px; padding: 0 7px;"
+              ><i class="fa-solid fa-envelope"></i>
+              </a>
               <a href="/user/cart" class="cart-btn"
                 ><i class="fa-solid fa-cart-shopping"></i>
             </a>
-            <a class="nav-link b" href="/">Home</a>
-          <a class="nav-link b" href="/api/auth/login">Log in</a>
+            <a class="nav-link b" href="/"  style="padding-right: 0px; padding-left: 0px;">Home</a>
+          <a class="nav-link b" href="/api/auth/login" style="padding-right: 0px; padding-left: 0px;">Log in</a>
           <% } %>
           </div>
       </div>
@@ -482,13 +480,37 @@
       const templete = document.getElementById('templete')
       const change = document.getElementById('change')
       templete.addEventListener('change', (event) => {
-  const selectedValue = event.target.value;
-  if (selectedValue === 'first' || '') {
-    change.href = '/'
-  } else {
-    change.href = `/${selectedValue}`;
-  }
+      const selectedValue = event.target.value;
+      if (selectedValue === 'first' || '') {
+        change.href = '/'
+      } else {
+        change.href = `/${selectedValue}`;
+      }
+    });
+
+const form = document.querySelector('.searchForm');
+const searchInput = document.querySelector('.search-bar');
+const products = document.querySelectorAll('.products-box');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  performSearch();
 });
+
+function performSearch() {
+  const searchTerm = searchInput.value.toLowerCase();
+
+  products.forEach((product) => {
+    const productNameElement = product.querySelector('.f2');
+    const productName = productNameElement.textContent.toLowerCase();
+
+    if (productName.includes(searchTerm)) {
+      product.style.display = 'block';
+    } else {
+      product.style.display = 'none';
+    }
+  });
+}
     </script>
   </body>
 </html>

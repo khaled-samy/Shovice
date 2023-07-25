@@ -1,6 +1,4 @@
-const Order = require("../../../models/order");
-const User = require("../../../models/user");
-const Product = require("../../../models/product");
+const { User, Product, Order } = require("../../../models");
 
 exports.getUsersOrder = async (req, res) => {
   try {
@@ -34,7 +32,7 @@ exports.getUsersOrder = async (req, res) => {
       })
     );
 
-    res.render("admin/usersOrder.ejs", { orders: ordersData });
+    res.render("admin/order/usersOrder.ejs", { orders: ordersData });
   } catch (err) {
     console.log(err);
     res.render("error/500");

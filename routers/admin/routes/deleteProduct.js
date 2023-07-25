@@ -1,7 +1,7 @@
 const Product = require("../../../models/product");
 
 exports.deleteProduct = async (req, res) => {
-  res.redirect("../../..");
+  res.redirect("/api/admin/products");
   try {
     await Product.findByIdAndDelete(req.params.id);
   } catch (err) {

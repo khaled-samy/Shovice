@@ -1,7 +1,7 @@
 const Product = require("../../../models/product");
 
 exports.editProduct = async (req, res) => {
-  res.redirect("../../..");
+  res.redirect("/api/admin/products");
   try {
     await Product.findByIdAndUpdate(
       req.params.id,
